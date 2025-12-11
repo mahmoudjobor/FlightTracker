@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/react_native_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/button_appcompose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show RN Fragment"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_margin="16dp" />
+
+</FrameLayout>
