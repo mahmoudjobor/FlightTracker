@@ -4,14 +4,27 @@ apply plugin: "com.facebook.react"
 
 android {
     namespace "com.example.flighttracker"
-    compileSdkVersion 34
+    compileSdkVersion 35
     
     defaultConfig {
         applicationId "com.example.flighttracker"
         minSdkVersion 23
-        targetSdkVersion 34
+        targetSdkVersion 35
         versionCode 1
         versionName "1.0"
+
+        def mapsApiKey = System.getenv("MAPS_API_KEY") ?: ""
+        def localProperties = new Properties()
+        def localPropertiesFile = rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localProperties.load(new FileInputStream(localPropertiesFile))
+            if (!mapsApiKey) {
+                mapsApiKey = localProperties.getProperty("MAPS_API_KEY", "")
+            }
+        }
+
+        manifestPlaceholders = [googleMapsApiKey: mapsApiKey]
+        resValue "string", "google_maps_api_key", mapsApiKey
     }
     
     compileOptions {
@@ -27,6 +40,7 @@ android {
 dependencies {
     implementation("com.facebook.react:react-android")
     implementation("com.facebook.react:hermes-android")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
