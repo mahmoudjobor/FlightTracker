@@ -11,3 +11,8 @@ export const opensky = async () => {
     throw err;
   }
 };
+
+export const fetchAllFlights = async () => {
+  const data = await opensky();
+  return data.states || [];
+};

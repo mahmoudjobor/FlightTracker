@@ -79,8 +79,6 @@ export const ListOfFlights = ({ onSelect }) => {
                     />
                 }
             />
-            {/* raw data for debugging */}
-            <Text>Raw Data: {JSON.stringify(flights)}</Text>
         </View>
     );
 };
