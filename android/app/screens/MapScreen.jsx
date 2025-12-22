@@ -1,5 +1,5 @@
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
-import { View, StyleSheet, Text, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { opensky } from '../services/opensky';
 import React, { useState, useEffect } from 'react';
 
@@ -10,7 +10,7 @@ const MapScreen = ({ onSelect }) => {
     const [mapReady, setMapReady] = useState(false);
     const [mapTimedOut, setMapTimedOut] = useState(false);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const fetchFlights = async () => {
             try {
                 const data = await opensky();
@@ -25,7 +25,7 @@ const MapScreen = ({ onSelect }) => {
         fetchFlights();
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const timeout = setTimeout(() => {
             if (!mapReady) setMapTimedOut(true);
         }, 8000);
@@ -116,10 +116,7 @@ const MapScreen = ({ onSelect }) => {
                 <View style={styles.mapErrorOverlay} pointerEvents="none">
                     <Text style={styles.mapErrorTitle}>Map didn’t load</Text>
                     <Text style={styles.mapErrorText}>
-                        Most common cause on Android: missing/invalid Google Maps API key.
-                    </Text>
-                    <Text style={styles.mapErrorText}>
-                        Set MAPS_API_KEY in android/local.properties (not committed) then rebuild.
+                        invalid Google Maps API key.
                     </Text>
                 </View>
             )}

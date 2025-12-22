@@ -11,7 +11,8 @@ import {
 } from "react-native";
 
 const FlightItem = ({ item, onPress }) => {
-    const callsign = (item[1] || "").trim() || "N/A";
+    const flight = item[0];
+    const callsign = (item[1] || "").trim();
     const origin = item[2] || "N/A";
     const altitude = item[7] != null ? `${Math.round(item[7])} m` : "N/A";
     const speed = item[9] != null ? `${Math.round(item[9])} m/s` : "N/A";
@@ -19,7 +20,8 @@ const FlightItem = ({ item, onPress }) => {
     return (
         <TouchableOpacity onPress={() => onPress && onPress(item)}>
             <View style={styles.item}>
-                <Text style={styles.callsign}>{callsign}</Text>
+                <Text style={styles.flight}>{callsign || flight}</Text>
+                <Text style={styles.callsign}>{flight}</Text>
                 <Text style={styles.sub}>{origin} • {altitude} • {speed}</Text>
             </View>
         </TouchableOpacity>
@@ -36,6 +38,7 @@ export const ListOfFlights = ({ onSelect }) => {
         try {
             setError(null);
             const data = await opensky();
+            console.log("OpenSky states sample:", data.states && data.states.slice(0, 5));
             setFlights(data.states || []);
         } catch (err) {
             setError(err?.message || String(err));
@@ -89,7 +92,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 12,
-        backgroundColor: "#fff",
+        backgroundColor: "#bcd3dbff",
+    },
+    flight: {
+        fontSize: 18,
+        fontWeight: "700",
     },
     item: {
         paddingVertical: 10,

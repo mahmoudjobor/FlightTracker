@@ -5,7 +5,6 @@ import {
     StyleSheet,
     TouchableOpacity,
     ScrollView,
-    Dimensions,
 } from "react-native";
 
 const DetailsScreen = ({ flight, onBack }) => {
